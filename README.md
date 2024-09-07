@@ -66,4 +66,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-Feel free to customize this README further based on specific features, additional acknowledgments, or any other relevant information about your QuizDapp project!
+
