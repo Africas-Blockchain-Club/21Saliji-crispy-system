@@ -57,25 +57,22 @@ function App() {
   };
 
   return (
-    <div className="first-one">
-      <h1>Minting Machine App</h1>
-      {isConnected ? ( // Show this section if the wallet is connected
-        <div className="page-container">
-          <div className="container">
-            <div className="wallet-status">
-              <p className="text">Your Wallet is connected</p>
-              <FontAwesomeIcon icon={faCircleCheck} style={{ color: '#63E6BE' }} />
-            </div>
-            <button onClick={promptForMintAmount} className="prompt-button">Set Mint Amount</button>
-            <button onClick={mint} className="mint-button">Mint {mintAmount} NFT(s)</button>
-          </div>
+  <>
+    <h1>Minting Machine App</h1>
+    {isConnected ? (
+      <>
+        <p className="text">Your Wallet is connected  <FontAwesomeIcon icon={faCircleCheck} style={{ color: '#63E6BE' }} /></p>
+
+        <div className="button-container">
+          <button onClick={promptForMintAmount} className="prompt-button">Set Mint Amount</button>
+          <button onClick={mint} className="mint-button">Mint {mintAmount} NFT(s)</button>
         </div>
-      ) : ( // Show this section if the wallet is not connected
-        <div className="connect-button-container">
-          <button onClick={connectWallet} className="connect-button">Connect Wallet</button>
-        </div>
-      )}
-    </div>
+
+      </>
+    ) : (
+      <button onClick={connectWallet} className="connect-button">Connect Wallet</button>
+    )}
+  </>
   );
 }
 

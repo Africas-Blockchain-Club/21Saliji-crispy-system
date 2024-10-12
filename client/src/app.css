@@ -1,72 +1,31 @@
-/* General Layout */
-
-h1 {
-  text-align: center;
-}
-.first-one {
-  background: rgba(255, 255, 255, 0.9); /* Set the background color with some transparency */
-  margin: 100px;
-  padding: 100px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border: 1px solid #ddd;
-}
-.prompt-button, .mint-button, .connect-button {
-  padding: 0.75em 1.5em;
-  border: none;
-  border-radius: 4px;
-  background-color: #646cff;
-  color: #fff;
-  font-size: 1em;
-  cursor: pointer;
-  transition: background-color 200ms ease-in-out, transform 200ms ease-in-out;
-  margin: 10px; /* Add margin to buttons for spacing */
-}
-
-.mint-button {
-  margin-right: 0; /* Remove right margin for mint button */
-}
-
-p {
-  text-align: center;
-  margin: 0 0 1em 0; /* Add margin below text */
-}
-
-/* Ensure the body and html take full height */
-html, body {
-  height: 100%;
-  margin: 0;
-}
-
-/* Flexbox on the parent container to center content */
-.page-container {
-  display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  height: 100vh; /* Full viewport height */
-  flex-direction: column; /* Stack elements vertically */
-}
-
-/* Flex container for text and icon */
-.wallet-status {
-  display: flex;
-  align-items: center; /* Align icon and text vertically */
-  gap: 0.5em; /* Space between icon and text */
-  margin-bottom: 1em; /* Add margin below the wallet status */
-}
-
-.text {
-  margin: 0;
-  color: #000; /* Default color for text */
-}
-
-/* Centering the connect wallet button */
-.connect-button-container {
-  display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  height: 100vh; /* Full viewport height */
-}
+h1{
+text-align: center}
 
 .connect-button {
-  /* No additional changes needed */
+  display: block;
+  margin: auto;
+}
+
+div {
+    background: rgba(255, 255, 255, 0.9); /* Set the background color with some transparency */
+    margin: auto;
+    width: 60%;
+    padding: 70px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+}
+
+p{
+text-align: center}
+
+
+.button-container {
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0);
+  margin: 20px auto;
+}
+
+.prompt-button, .mint-button {
+  display: inline-block;
+  margin: 10px; /* Add some space between buttons */
 }
