@@ -11,8 +11,7 @@ function App() {
   const [contract, setContract] = useState(null);
   const [mintAmount, setMintAmount] = useState(1); 
   const [isConnected, setIsConnected] = useState(false); // New state for connection status
-  const [mintedNFT, setMintedNFT] = useState(null);
-
+  const [mintedNFTs, setMintedNFTs] = useState([]);
 
   const connectWallet = async () => {
     if (window.ethereum) {
@@ -48,16 +47,35 @@ function App() {
 
   const mint = async () => {
     try {
-      const costPerNFT = Web3.utils.toWei('0.05', 'wei');
-      const totalCost = Web3.utils.toWei((costPerNFT * mintAmount).toString(), 'ether');
+      const costPerNFT = Web3.utils.toWei('0.05', 'ether'); // Changed to 'ether' for correct conversion
+      const totalCost = (costPerNFT * mintAmount).toString(); // Convert to string
       await contract.methods.mint(accounts[0], mintAmount).send({ from: accounts[0], value: totalCost });
       alert('Minting successful!');
-      const tokenId = result.events.Transfer.returnValues.tokenId; // Assuming "Transfer" event includes tokenId
-      const tokenURI = await contract.methods.tokenURI(tokenId).call(); // Fetch the token URI
-
-      setMintedNFT({ tokenId, tokenURI });
+      fetchNFTsFromOpenSea(accounts[0]);
     } catch (error) {
       console.error("Minting failed!", error);
+    }
+  };
+
+  const fetchNFTsFromOpenSea = async (walletAddress) => {
+    const contractAddress = '0x938fC3B6DA9801D01bA292eA1784Da79113ce4e6'; // Your NFT contract address
+    const apiUrl = `https://testnets-api.opensea.io/api/v1/assets?owner=${walletAddress}&asset_contract_address=${contractAddress}&order_direction=desc`;
+
+    try {
+      const response = await fetch(apiUrl);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json(); // Ensure 'data' is defined here
+
+      if (data.assets) {
+        setMintedNFTs(data.assets); // Store the fetched NFTs
+        console.log("Fetched NFTs:", data.assets);
+      } else {
+        console.error("Error fetching NFTs:", data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch NFTs from OpenSea", error);
     }
   };
 
@@ -73,14 +91,19 @@ function App() {
           <button onClick={mint} className="mint-button">Mint {mintAmount} NFT(s)</button>
         </div>
 
-        {mintedNFT && (
-          <div className="nft-display">
-            <h2>Your Minted NFT</h2>
-            <p>Token ID: {mintedNFT.tokenId}</p>
-            <img src={mintedNFT.tokenURI} alt="Minted NFT" style={{ maxWidth: '200px', borderRadius: '10px' }} />
-          </div>
-        )}
-
+        {mintedNFTs.length > 0 ? (
+            <div className="nft-gallery">
+              {mintedNFTs.map((nft, index) => (
+                <div key={index} className="nft-item">
+                  <img src={nft.image_url} alt={nft.name} style={{ maxWidth: '200px', borderRadius: '10px' }} />
+                  <p>{nft.name}</p>
+                  <p>Token ID: {nft.token_id}</p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p>No NFTs found for this wallet.</p>
+          )}
       </>
     ) : (
       <button onClick={connectWallet} className="connect-button">Connect Wallet</button>
