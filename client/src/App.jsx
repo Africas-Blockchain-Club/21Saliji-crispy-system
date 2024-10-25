@@ -50,6 +50,10 @@ function App() {
       const totalCost = Web3.utils.toWei((costPerNFT * mintAmount).toString(), 'ether');
 
       await contract.methods.mint(accounts[0], mintAmount).send({ from: accounts[0], value: totalCost });
+      const tokenIds = receipt.events.Transfer.returnValues.tokenIds; // Adjust based on your contract's actual event structure
+
+      const newImages = tokenIds.map(id => `https://your-image-url.com/${id}.png`); // Replace with actual image URL format
+      setMintedImages(prevImages => [...prevImages, ...newImages]);
       alert('Minting successful!');
     } catch (error) {
       console.error("Minting failed!", error);
@@ -67,6 +71,13 @@ function App() {
           <button onClick={promptForMintAmount} className="prompt-button">Set Mint Amount</button>
           <button onClick={mint} className="mint-button">Mint {mintAmount} NFT(s)</button>
         </div>
+
+         {/* Display minted images */}
+          <div className="minted-images">
+            {mintedImages.length > 0 && mintedImages.map((image, index) => (
+              <img key={index} src={image} alt={`Minted NFT ${index}`} />
+            ))}
+          </div>
 
       </>
     ) : (
