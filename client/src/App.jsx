@@ -11,6 +11,8 @@ function App() {
   const [contract, setContract] = useState(null);
   const [mintAmount, setMintAmount] = useState(1); 
   const [isConnected, setIsConnected] = useState(false); // New state for connection status
+  const [mintedNFT, setMintedNFT] = useState(null);
+
 
   const connectWallet = async () => {
     if (window.ethereum) {
@@ -48,13 +50,12 @@ function App() {
     try {
       const costPerNFT = Web3.utils.toWei('0.05', 'wei');
       const totalCost = Web3.utils.toWei((costPerNFT * mintAmount).toString(), 'ether');
-
       await contract.methods.mint(accounts[0], mintAmount).send({ from: accounts[0], value: totalCost });
-      const tokenIds = receipt.events.Transfer.returnValues.tokenIds; // Adjust based on your contract's actual event structure
-
-      const newImages = tokenIds.map(id => `https://your-image-url.com/${id}.png`); // Replace with actual image URL format
-      setMintedImages(prevImages => [...prevImages, ...newImages]);
       alert('Minting successful!');
+      const tokenId = result.events.Transfer.returnValues.tokenId; // Assuming "Transfer" event includes tokenId
+      const tokenURI = await contract.methods.tokenURI(tokenId).call(); // Fetch the token URI
+
+      setMintedNFT({ tokenId, tokenURI });
     } catch (error) {
       console.error("Minting failed!", error);
     }
@@ -72,12 +73,13 @@ function App() {
           <button onClick={mint} className="mint-button">Mint {mintAmount} NFT(s)</button>
         </div>
 
-         {/* Display minted images */}
-          <div className="minted-images">
-            {mintedImages.length > 0 && mintedImages.map((image, index) => (
-              <img key={index} src={image} alt={`Minted NFT ${index}`} />
-            ))}
+        {mintedNFT && (
+          <div className="nft-display">
+            <h2>Your Minted NFT</h2>
+            <p>Token ID: {mintedNFT.tokenId}</p>
+            <img src={mintedNFT.tokenURI} alt="Minted NFT" style={{ maxWidth: '200px', borderRadius: '10px' }} />
           </div>
+        )}
 
       </>
     ) : (
