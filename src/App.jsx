@@ -1,14 +1,17 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'; 
 import Web3 from 'web3';
 import nftContract from './nftContract';
-import './App.css'
+import './App.css';
 
 function App() {
   const [web3, setWeb3] = useState(null);
   const [accounts, setAccounts] = useState([]);
   const [contract, setContract] = useState(null);
   const [mintAmount, setMintAmount] = useState(1); 
-  const [isConnected, setIsConnected] = useState(false); // New state for connection status
+  const [isConnected, setIsConnected] = useState(false);
+  const [isMinting, setIsMinting] = useState(false); // New state for connection status
 
   const connectWallet = async () => {
     if (window.ethereum) {
@@ -57,29 +60,32 @@ function App() {
 
   return (
     <>
-    <h3>Minting Machine App</h3>
-      {/* <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div className="App">
+      <h1>Minting Machine App</h1>
+      {isConnected ? (
+        <>
+          <p className="text">
+            Your Wallet is connected{' '}
+            <FontAwesomeIcon icon={faCircleCheck} style={{ color: '#63E6BE' }} />
+          </p>
+
+          <div className="button-container">
+            <button onClick={promptForMintAmount} className="prompt-button">
+              Set Mint Amount
+            </button>
+            <button onClick={mint} className="mint-button" disabled={isMinting}>
+              {isMinting ? 'Minting...' : `Mint ${mintAmount} NFT(s)`}
+            </button>
+          </div>
+        </>
+      ) : (
+        <button onClick={connectWallet} className="connect-button">
+          Connect Wallet
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p> */}
+      )}
+    </div>
     </>
-  )
+  );
 }
 
 export default App
