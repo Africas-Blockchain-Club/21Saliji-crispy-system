@@ -1,0 +1,19 @@
+{
+    "name": "White Diamond",
+    "description": "The imposing and regal leader of the Diamond Authority, possessing immense power.",
+    "image": "ipfs://Qmb3HyMyhnub3aK6AqAMXtpiA5Ki6tVS7yzgVEbNskbL2N/10.jpg",
+    "attributes": [
+        {
+            "trait_type": "Gemstone",
+            "value": "White Diamond"
+        },
+        {
+            "trait_type": "Role",
+            "value": "Leader of Diamond Authority"
+        },
+        {
+            "trait_type": "Rarity",
+            "value": "Mythic"
+        }
+    ]
+}

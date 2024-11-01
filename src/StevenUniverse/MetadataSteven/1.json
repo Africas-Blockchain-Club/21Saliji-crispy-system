@@ -1,0 +1,19 @@
+{
+    "name": "Rose Quartz",
+    "description": "The compassionate and enigmatic former leader of the Crystal Gems, known for her pink, curly hair and gentle demeanor.",
+    "image": "ipfs://Qmb3HyMyhnub3aK6AqAMXtpiA5Ki6tVS7yzgVEbNskbL2N/1.jpg",
+    "attributes": [
+        {
+            "trait_type": "Gemstone",
+            "value": "Rose Quartz"
+        },
+        {
+            "trait_type": "Affiliation",
+            "value": "Crystal Gems"
+        },
+        {
+            "trait_type": "Rarity",
+            "value": "Legendary"
+        }
+    ]
+}
