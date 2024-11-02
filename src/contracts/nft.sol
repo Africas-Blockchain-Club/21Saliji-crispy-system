@@ -1256,19 +1256,20 @@ contract ABC is ERC721Enumerable, Ownable {
 
         function mint(address _to, uint256 _mintAmount) public payable {
             uint256 supply = totalSupply();
-            require(!paused);
-            require(_mintAmount > 0);
-            require(_mintAmount <= maxMintAmount);
-            require(supply + _mintAmount <= maxAvailableTokens, "Not enough metadata files available"); // Adjusted check
-            
+            require(!paused, "Contract is paused");
+            require(_mintAmount > 0, "Mint amount must be greater than zero");
+            require(_mintAmount <= maxMintAmount, "Exceeds max mint amount");
+            require(supply + _mintAmount <= maxAvailableTokens, "Not enough metadata files available");
+
             if (msg.sender != owner()) {
-                require(msg.value == cost * _mintAmount, "Need to send 0.08 ether!");
+                require(msg.value == cost * _mintAmount, "Need to send correct ether amount");
             }
 
-            for (uint256 i = 1; i <= _mintAmount; i++) {
-                _safeMint(_to, supply + i);
+            for (uint256 i = 0; i < _mintAmount; i++) {
+                _safeMint(_to, supply + i + 1); // Adjusting index for minting
             }
         }
+
 
 
         function walletOfOwner(address _owner)
