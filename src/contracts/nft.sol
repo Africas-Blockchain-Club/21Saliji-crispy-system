@@ -1243,6 +1243,8 @@ contract ABC is ERC721Enumerable, Ownable {
     uint256 public maxSupply = 1000;
     uint256 public maxMintAmount = 5;
     bool public paused = false;
+    uint256 public maxAvailableTokens = 10; // Limit to 10 as per your IPFS metadata files
+
 
     constructor() ERC721("Yankho's StevenUniverse Collection", "YSC") {}
         // internal
@@ -1251,21 +1253,23 @@ contract ABC is ERC721Enumerable, Ownable {
     }
         // public
 
+
         function mint(address _to, uint256 _mintAmount) public payable {
             uint256 supply = totalSupply();
             require(!paused);
             require(_mintAmount > 0);
             require(_mintAmount <= maxMintAmount);
-            require(supply + _mintAmount <= maxSupply);
+            require(supply + _mintAmount <= maxAvailableTokens, "Not enough metadata files available"); // Adjusted check
             
             if (msg.sender != owner()) {
-            require(msg.value == cost * _mintAmount, "Need to send 0.08 ether!");
+                require(msg.value == cost * _mintAmount, "Need to send 0.08 ether!");
             }
-            
+
             for (uint256 i = 1; i <= _mintAmount; i++) {
                 _safeMint(_to, supply + i);
             }
         }
+
 
         function walletOfOwner(address _owner)
         public
@@ -1282,22 +1286,25 @@ contract ABC is ERC721Enumerable, Ownable {
     
         
         function tokenURI(uint256 tokenId)
-        public
-        view
-        virtual
-        override
-        returns (string memory) {
+            public
+            view
+            virtual
+            override
+            returns (string memory)
+        {
             require(
                 _exists(tokenId),
                 "ERC721Metadata: URI query for nonexistent token"
-                );
-                
-                string memory currentBaseURI = _baseURI();
-                return
-                bytes(currentBaseURI).length > 0 
+            );
+
+            string memory currentBaseURI = _baseURI();
+            string memory tokenPath = tokenId <= maxAvailableTokens
                 ? string(abi.encodePacked(currentBaseURI, tokenId.toString(), baseExtension))
-                : "";
+                : string(abi.encodePacked(currentBaseURI, "default.json"));
+
+            return bytes(currentBaseURI).length > 0 ? tokenPath : "";
         }
+
         // only owner
         
         function setmaxMintAmount(uint256 _newmaxMintAmount) public onlyOwner() {
