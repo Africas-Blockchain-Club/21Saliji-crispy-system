@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'; 
 import Web3 from 'web3';
-import nftContract from './nftContract';
+import nftContract from './NFT';
 import './App.css';
 
 function App() {
