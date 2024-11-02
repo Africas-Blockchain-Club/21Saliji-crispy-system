@@ -50,31 +50,44 @@ function App() {
     try {
       const costPerNFT = Web3.utils.toWei('0.05', 'wei');
       const totalCost = Web3.utils.toWei((costPerNFT * mintAmount).toString(), 'ether');
-
-      await contract.methods.mint(accounts[0], mintAmount).send({ from: accounts[0], value: totalCost });
+  
+      const receipt = await contract.methods.mint(accounts[0], mintAmount).send({ from: accounts[0], value: totalCost });
       alert('Minting successful!');
-      const imageUrls = [];
-    for (let i = 0; i < mintAmount; i++) {
-      const tokenId = await contract.methods.totalSupply().call();
-      const metadataURI = await contract.methods.tokenURI(tokenId).call();
       
-      // Convert metadata CID URI to a Pinata gateway URL
-      const formattedMetadataURI = metadataURI.replace('ipfs://', 'https://gateway.pinata.cloud/ipfs/');
-
-      // Fetch metadata and extract image CID
-      const response = await fetch(formattedMetadataURI);
-      const metadata = await response.json();
-      const imageCID = metadata.image.replace('ipfs://', 'https://gateway.pinata.cloud/ipfs/');
-
-      imageUrls.push(imageCID);
-    }
-
-    setNftImages(prevImages => [...prevImages, ...imageUrls]);
+      const newMints = [];
+      for (let i = 0; i < mintAmount; i++) {
+        const tokenId = await contract.methods.totalSupply().call();
+        const metadataURI = await contract.methods.tokenURI(tokenId).call();
+  
+        const formattedMetadataURI = metadataURI.replace('ipfs://', 'https://gateway.pinata.cloud/ipfs/');
+        console.log("Metadata URI:", formattedMetadataURI);
+  
+        try {
+          const response = await fetch(formattedMetadataURI);
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+  
+          const metadata = await response.json();
+          console.log("Metadata:", metadata);
+  
+          if (!metadata.image) {
+            throw new Error("Metadata is missing 'image' key");
+          }
+  
+          const imageCID = metadata.image.replace('ipfs://', 'https://gateway.pinata.cloud/ipfs/');
+          newMints.push({ imageURL: imageCID, transactionID: receipt.transactionHash });
+        } catch (error) {
+          console.error("Error fetching or parsing metadata:", error);
+        }
+      }
+  
+      setNftImages(prevImages => [...prevImages, ...newMints].slice(-4));
     } catch (error) {
       console.error("Minting failed!", error);
     }
   };
-
+  
 
   return (
     <>
@@ -96,11 +109,14 @@ function App() {
             </button>
           </div>
 
-            {/* Display minted NFT images */}
+            {/* Display minted NFT images with transaction IDs */}
             <div className="nft-gallery">
               {nftImages.length > 0 ? (
-                nftImages.map((url, index) => (
-                  <img key={index} src={url} alt={`NFT ${index + 1}`} className="nft-image" />
+                nftImages.map((nft, index) => (
+                  <div key={index} className="nft-item">
+                    <img src={nft.imageURL} alt={`NFT ${index + 1}`} className="nft-image" />
+                    <p>Transaction ID: {nft.transactionID}</p>
+                  </div>
                 ))
               ) : (
                 <p>No NFTs minted yet</p>
