@@ -48,24 +48,24 @@ function App() {
 
   const mint = async () => {
     try {
-      const costPerNFT = Web3.utils.toWei('0.05', 'wei');
-      const totalCost = Web3.utils.toWei((costPerNFT * mintAmount).toString(), 'ether');
+      const costPerNFT = Web3.utils.toWei('0.05', 'ether'); // Corrected conversion
+      const totalCost = Web3.utils.toWei((costPerNFT * mintAmount).toString(), 'ether');// Cost is already in wei
   
       const receipt = await contract.methods.mint(accounts[0], mintAmount).send({ from: accounts[0], value: totalCost });
       alert('Minting successful!');
-      
+  
       const newMints = [];
       for (let i = 0; i < mintAmount; i++) {
-        const tokenId = await contract.methods.totalSupply().call();
+        const tokenId = await contract.methods.totalSupply().call() - 1; // Get the correct token ID
         const metadataURI = await contract.methods.tokenURI(tokenId).call();
-  
         const formattedMetadataURI = metadataURI.replace('ipfs://', 'https://gateway.pinata.cloud/ipfs/');
-        console.log("Metadata URI:", formattedMetadataURI);
+        console.log("Fetching metadata from:", formattedMetadataURI);
   
         try {
           const response = await fetch(formattedMetadataURI);
           if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+            const errorText = await response.text(); // Log the error text
+            throw new Error(`HTTP error! Status: ${response.status}, Response: ${errorText}`);
           }
   
           const metadata = await response.json();
@@ -78,7 +78,8 @@ function App() {
           const imageCID = metadata.image.replace('ipfs://', 'https://gateway.pinata.cloud/ipfs/');
           newMints.push({ imageURL: imageCID, transactionID: receipt.transactionHash });
         } catch (error) {
-          console.error("Error fetching or parsing metadata:", error);
+          console.error("Error fetching or parsing metadata for token ID:", tokenId, error);
+          continue; // Continue to the next mint
         }
       }
   
