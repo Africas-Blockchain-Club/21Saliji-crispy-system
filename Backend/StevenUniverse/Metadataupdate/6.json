@@ -1,0 +1,19 @@
+{
+    "name": "Lapis Lazuli",
+    "description": "A water-manipulating Gem with a complex past and striking blue appearance.",
+    "image": "https://gateway.pinata.cloud/ipfs/QmZEiZScYmKYtfUJnsCUcYcCTEqqXU2VXpiBF83FDR8ESv/6.png",
+    "attributes": [
+        {
+            "trait_type": "Gemstone",
+            "value": "Lapis Lazuli"
+        },
+        {
+            "trait_type": "Abilities",
+            "value": "Hydrokinesis"
+        },
+        {
+            "trait_type": "Rarity",
+            "value": "Rare"
+        }
+    ]
+}

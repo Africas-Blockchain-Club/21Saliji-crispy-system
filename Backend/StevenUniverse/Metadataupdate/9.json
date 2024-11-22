@@ -1,0 +1,19 @@
+{
+    "name": "Steven Universe",
+    "description": "The optimistic and compassionate half-human, half-Gem hero who inherits his mother’s gemstone.",
+    "image": "https://gateway.pinata.cloud/ipfs/QmZEiZScYmKYtfUJnsCUcYcCTEqqXU2VXpiBF83FDR8ESv/9.png",
+    "attributes": [
+        {
+            "trait_type": "Gemstone",
+            "value": "Rose Quartz"
+        },
+        {
+            "trait_type": "Personality",
+            "value": "Empathetic"
+        },
+        {
+            "trait_type": "Rarity",
+            "value": "Unique"
+        }
+    ]
+}
