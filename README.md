@@ -1,12 +1,67 @@
-# React + Vite
+# Vending Machine DApp
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a decentralized vending machine application built with React and Ethereum smart contracts.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- Connect your Ethereum wallet (MetaMask).
+- View your wallet balance.
+- Check vending machine stock balance.
+- Buy Cokes for 0.02 ETH each.
+- View your personal Coke inventory.
+- Owner can restock the vending machine.
+- Error handling and loading states included.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Technologies Used
+
+- React (with hooks and functional components)
+- ethers.js (for Ethereum interaction)
+- Solidity (for smart contract)
+- MetaMask (Ethereum wallet provider)
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js and npm installed
+- MetaMask browser extension
+- Access to Ethereum testnet or mainnet (depending on deployment)
+- Deployed smart contract address and ABI (`vending.json`)
+
+### Installation
+
+1. Clone this repository:
+
+   ```bash
+   git clone https://github.com/your-username/your-repo.git
+   cd your-repo
+
+2. Install dependencies:
+    ```bash
+   npm install
+
+3. Run Locally:
+    ```bash
+   npm run dev
+
+   This will run the app in development mode at
+    http://localhost:5173/
+
+### Usage
+- Open the app in a browser with MetaMask installed.
+
+- Click Connect Wallet and approve the connection.
+
+- View your wallet ETH balance and vending machine stock.
+
+- Buy Cokes by clicking Buy 1 Coke (0.02 ETH).
+
+- If you are the owner, you can restock the machine.
+
+- Refresh your personal Coke inventory using the refresh button.
