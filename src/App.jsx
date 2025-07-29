@@ -5,7 +5,7 @@ import vendingLogo from '/vending.svg'
 import './App.css'
 
 // Add these missing constants
-const CONTRACT_ADDRESS = "0x34D7d898cCaccE6a2113AF080D086fC2874c8De6";
+const CONTRACT_ADDRESS = "0xA77f483174E7f3E0976F379b9BE3FBD9db1A84d8";
 const VENDING_MACHINE_ABI = vendingMachine;
 
 function App() {
@@ -16,8 +16,7 @@ function App() {
   const [isOwner, setIsOwner] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [restockAmount, setRestockAmount] = useState(1);
-  const [purchaseAmount, setPurchaseAmount] = useState(1);
+  const [userCokeBalance, setUserCokeBalance] = useState(0);
   const [walletBalance, setWalletBalance] = useState(0); 
 
   const connectWallet = async () => {
@@ -58,6 +57,7 @@ function App() {
           await getVendingMachineBalance(contractInstance);
           
           console.log('Connection completed successfully');
+          await getUserCokeBalance(contractInstance);
           
         } else {
           setError('Please install MetaMask to use this application');
@@ -91,7 +91,7 @@ function App() {
         setLoading(true);
         setError('');
         
-        const tx = await contract.restock(10); 
+        const tx = await contract.restock(3); 
         await tx.wait();
         
         
@@ -104,9 +104,19 @@ function App() {
       }
     };
 
-  // const buyDonuts = () => {
-  //   setError('Donut functionality not implemented in the smart contract yet');
-  // };
+  const getUserCokeBalance = async (contractInstance = contract) => {
+    try {
+      if (contractInstance && account) {
+        const balance = await contractInstance.getCokeBalance(account);
+        console.log('User Coke balance:', balance.toString());
+        setUserCokeBalance(parseInt(balance.toString()));
+      }
+    } catch (err) {
+      console.error('User balance error:', err);
+      setError('Failed to get your Coke balance: ' + err.message);
+    }
+  };
+
 
   const buyCoke = async () => {
     try {
@@ -123,7 +133,7 @@ function App() {
       
       
       await getVendingMachineBalance(contract);
-      
+      await getUserCokeBalance(contract);
       
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
@@ -171,12 +181,13 @@ function App() {
             <p>Wallet: {account}</p>
             <p>Status: {isOwner ? 'Owner' : 'Customer'}</p>
             <p>Balance: {parseFloat(walletBalance || 0).toFixed(4)} ETH</p>
-
+            <p>Your Coke Inventory: {userCokeBalance} 🧃</p>
             <p>Vending Balance: {parseFloat(vendingMachineBalance).toFixed(0)} items</p>
             <button onClick={buyCoke} disabled={loading}>
               {loading ? 'Purchasing...' : 'Buy 1 Coke (0.02 ETH)'}
-            </button> <span/> <span/>
-            {/* <button onClick={buyDonuts}>Buy 1 Donut (0.02 ETH)</button> */}
+            </button> <span/>
+            <button onClick={() => getUserCokeBalance(contract)}>Refresh My Inventory</button>
+            <span/> <span/> 
             {isOwner && (
               <button onClick={() => restockVendingMachine()} disabled={loading}>
                 {loading ? 'Restocking...' : 'Restock (owner only)'}
