@@ -39,8 +39,8 @@ This is a decentralized vending machine application built with React and Ethereu
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/your-username/your-repo.git
-   cd your-repo
+   git@github.com:Africas-Blockchain-Club/21Saliji_Vending_Machine.git
+   cd 21Saliji_Vending_Machine
 
 2. Install dependencies:
     ```bash
