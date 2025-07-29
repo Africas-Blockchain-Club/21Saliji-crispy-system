@@ -116,7 +116,6 @@ function App() {
     }
   };
 
-
   const buyCoke = async () => {
     try {
       if (!contract) return;
