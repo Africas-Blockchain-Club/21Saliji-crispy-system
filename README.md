@@ -31,8 +31,7 @@ This is a decentralized vending machine application built with React and Ethereu
 
 - Node.js and npm installed
 - MetaMask browser extension
-- Access to Ethereum testnet or mainnet (depending on deployment)
-- Deployed smart contract address and ABI (`vending.json`)
+- Access to Ethereum testnet (Scroll Sepolia)
 
 ### Installation
 
