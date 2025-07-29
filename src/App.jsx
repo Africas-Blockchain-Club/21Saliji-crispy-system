@@ -4,7 +4,6 @@ import vendingMachine from './contract/vending.json';
 import vendingLogo from '/vending.svg'
 import './App.css'
 
-// Add these missing constants
 const CONTRACT_ADDRESS = "0xA77f483174E7f3E0976F379b9BE3FBD9db1A84d8";
 const VENDING_MACHINE_ABI = vendingMachine;
 
