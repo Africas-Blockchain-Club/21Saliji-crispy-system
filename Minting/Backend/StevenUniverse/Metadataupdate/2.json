@@ -1,0 +1,19 @@
+{
+    "name": "Greg Universe",
+    "description": "Steven’s loving father and a former musician with a free-spirited personality.",
+    "image": "https://gateway.pinata.cloud/ipfs/QmZEiZScYmKYtfUJnsCUcYcCTEqqXU2VXpiBF83FDR8ESv/2.png",
+    "attributes": [
+        {
+            "trait_type": "Occupation",
+            "value": "Musician"
+        },
+        {
+            "trait_type": "Personality",
+            "value": "Supportive"
+        },
+        {
+            "trait_type": "Rarity",
+            "value": "Uncommon"
+        }
+    ]
+}

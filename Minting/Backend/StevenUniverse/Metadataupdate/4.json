@@ -1,0 +1,23 @@
+{
+    "name": "Jasper",
+    "description": "A fierce and powerful warrior Gem loyal to Homeworld, known for her aggressive nature and unmatched strength.",
+    "image": "https://gateway.pinata.cloud/ipfs/QmZEiZScYmKYtfUJnsCUcYcCTEqqXU2VXpiBF83FDR8ESv/4.png",
+    "attributes": [
+        {
+            "trait_type": "Gemstone",
+            "value": "Jasper"
+        },
+        {
+            "trait_type": "Affiliation",
+            "value": "Homeworld"
+        },
+        {
+            "trait_type": "Personality",
+            "value": "Aggressive"
+        },
+        {
+            "trait_type": "Rarity",
+            "value": "Epic"
+        }
+    ]
+}

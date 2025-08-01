@@ -1,0 +1,19 @@
+{
+    "name": "Garnet",
+    "description": "The composed and powerful leader of the Crystal Gems, a fusion of Ruby and Sapphire.",
+    "image": "https://gateway.pinata.cloud/ipfs/QmZEiZScYmKYtfUJnsCUcYcCTEqqXU2VXpiBF83FDR8ESv/8.png",
+    "attributes": [
+        {
+            "trait_type": "Gemstone",
+            "value": "Garnet"
+        },
+        {
+            "trait_type": "Fusion",
+            "value": "Yes"
+        },
+        {
+            "trait_type": "Rarity",
+            "value": "Epic"
+        }
+    ]
+}

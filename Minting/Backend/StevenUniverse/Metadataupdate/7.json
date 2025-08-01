@@ -1,0 +1,19 @@
+{
+    "name": "Peridot",
+    "description": "A former Homeworld Gem turned ally, known for her technical expertise and quirky personality.",
+    "image": "https://gateway.pinata.cloud/ipfs/QmZEiZScYmKYtfUJnsCUcYcCTEqqXU2VXpiBF83FDR8ESv/7.png",
+    "attributes": [
+        {
+            "trait_type": "Gemstone",
+            "value": "Peridot"
+        },
+        {
+            "trait_type": "Affiliation",
+            "value": "Crystal Gems"
+        },
+        {
+            "trait_type": "Rarity",
+            "value": "Uncommon"
+        }
+    ]
+}

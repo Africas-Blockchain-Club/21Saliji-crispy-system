@@ -1,0 +1,19 @@
+{
+    "name": "Sugilite",
+    "description": "The powerful and chaotic fusion of Amethyst and Garnet, known for her strength and bold personality.",
+    "image": "https://gateway.pinata.cloud/ipfs/QmZEiZScYmKYtfUJnsCUcYcCTEqqXU2VXpiBF83FDR8ESv/5.png",
+    "attributes": [
+        {
+            "trait_type": "Gemstone",
+            "value": "Sugilite"
+        },
+        {
+            "trait_type": "Fusion",
+            "value": "Yes"
+        },
+        {
+            "trait_type": "Rarity",
+            "value": "Epic"
+        }
+    ]
+}
