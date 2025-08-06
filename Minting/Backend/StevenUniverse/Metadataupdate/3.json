@@ -1,0 +1,19 @@
+{
+    "name": "Stevonnie",
+    "description": "The fusion of Steven and Connie, embodying their unique connection and strength.",
+    "image": "https://gateway.pinata.cloud/ipfs/QmZEiZScYmKYtfUJnsCUcYcCTEqqXU2VXpiBF83FDR8ESv/3.png",
+    "attributes": [
+        {
+            "trait_type": "Fusion",
+            "value": "Yes"
+        },
+        {
+            "trait_type": "Gemstone",
+            "value": "Rose Quartz (Steven)"
+        },
+        {
+            "trait_type": "Rarity",
+            "value": "Epic"
+        }
+    ]
+}
