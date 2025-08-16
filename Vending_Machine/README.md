@@ -51,6 +51,7 @@ This is a decentralized vending machine application built with React and Ethereu
 
    This will run the app in development mode at
     http://localhost:5173/
+21-saliji-vending-machine.vercel.app/
 
 ### Usage
 - Open the app in a browser with MetaMask installed.
