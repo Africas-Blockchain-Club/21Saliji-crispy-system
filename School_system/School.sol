@@ -44,6 +44,7 @@ contract ABC is AdminControl{
         require(bytes(_name).length > 0, "Name cannot be empty");
         require(_age > 0, "Age must be greater than zero");
         require(bytes(_academicLevel).length > 0, "Academic level cannot be empty");
+        require(!students[_originSchool][_id].exists, "Student already exists for this school/id");
 
         students[_originSchool][_id] = Student({
             name: _name,
@@ -55,9 +56,15 @@ contract ABC is AdminControl{
         studentIdsBySchool[_originSchool].push(_id);
         emit StudentAdded(_originSchool, _id, _name);
     }
-    }
 
     function getStudent(string calldata _originSchool, uint256 _id) public view returns (Student memory) {
+        require(students[_originSchool][_id].exists, "Student not found");
         return students[_originSchool][_id];
     }
+
+    function getAllStudentIds(string calldata _originSchool) public view returns (uint256[] memory) {
+        return studentIdsBySchool[_originSchool];
+    }
+
+}
 
